@@ -14,8 +14,25 @@ function StringCalculator() {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
 
-  const add = (numbers: string) => {
-    return 
+  const add = (numbers: string): number => {
+    if (!numbers) return 0;
+
+    let delimiter = /,|\n/;
+    if (numbers.startsWith("//")) {
+      const delimiterEnd = numbers.indexOf("\n");
+      delimiter = new RegExp(numbers.substring(2, delimiterEnd));
+      numbers = numbers.substring(delimiterEnd + 1);
+    }
+
+    const numArray = numbers.split(delimiter).map((n) => parseInt(n, 10));
+    const negativeNumbers = numArray.filter((n) => n < 0);
+    if (negativeNumbers.length > 0) {
+      throw new Error(
+        `Negative numbers not allowed: ${negativeNumbers.join(", ")}`
+      );
+    }
+
+    return numArray.reduce((sum, num) => sum + num, 0);
   };
 
   const handleCalculate = () => {
