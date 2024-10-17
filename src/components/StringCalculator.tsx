@@ -56,7 +56,7 @@ function StringCalculator() {
             withBorder
           >
             <Text size="lg" fw={500}>
-              Welcome to Mantine, with
+              Frontend TDD Assessment
             </Text>
             <Box px={30}>
               <TextInput
